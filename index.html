@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Your Choice, Your Music!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/12750/12750997.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="text-center">
+        <div class="spinner-border text-light mb-3" style="width:3rem;height:3rem;" role="status"></div>
+        <div class="fw-semibold">Loading your music page...</div>
+      </div>
+    </div>
+
+    <div class="container py-4 app-shell">
+      <div id="loginPage" class="row justify-content-center d-none">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card glass-card border-0 shadow-lg">
+            <div class="card-body p-4">
+              <div class="text-center mb-4">
+                <i class="bi bi-music-note-beamed fs-1"></i>
+                <h2 class="mt-2 mb-1">Login</h2>
+                <p class="text-light mb-0">Your Choice, Your Music!</p>
+              </div>
+              <div id="loginAlert"></div>
+              <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input type="text" id="username" class="form-control form-control-lg" placeholder="Enter username" autocomplete="username">
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" class="form-control form-control-lg" placeholder="Enter password" autocomplete="current-password">
+              </div>
+              <button id="loginBtn" class="btn btn-primary w-100 btn-lg" type="button">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="appPage" class="d-none">
+        <div class="card glass-card border-0 shadow-sm mb-4 header-card">
+          <div class="card-body">
+            <div class="row align-items-center g-3 text-center text-md-start">
+              <div class="col-12 col-md-3">
+                <div class="small">Hi,</div>
+                <div class="fw-bold fs-5 d-flex align-items-center justify-content-center justify-content-md-start flex-wrap" id="userIdentityWrap">
+                  <span id="displayUsername">-</span>
+                  <span id="userRoleBadge" class="role-badge d-none"></span>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="fw-bold fs-5 title-main text-center">Your Choice, Your Music!</div>
+              </div>
+              <div class="col-12 col-md-3 text-md-end">
+                <div class="d-flex justify-content-md-end justify-content-center align-items-center gap-2 flex-wrap">
+                  <div class="dropdown">
+                    <button id="notifBtn" class="btn btn-outline-light position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open notifications">
+                      <i class="bi bi-bell"></i>
+                      <span id="notifBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end p-2 notification-menu shadow-lg">
+                      <div class="d-flex justify-content-between align-items-center gap-2 p-2">
+                        <div class="fw-bold text-info mb-0">Notifications</div>
+                        <button id="markNotificationsReadBtn" class="btn btn-sm btn-outline-info" type="button">Mark all read</button>
+                      </div>
+                      <div id="notificationContainer" class="notification-container">
+                        <div class="small text-muted px-2">No notifications yet.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <button id="toggleSettingsBtn" class="btn btn-outline-light" type="button">Settings</button>
+                  <button id="logoutBtn" class="btn btn-outline-light" type="button">Logout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="settingsSection" class="card glass-card border-0 shadow-sm mb-4 d-none">
+          <div class="card-body">
+            <h5 class="mb-3">User Settings</h5>
+            <div id="settingsAlert"></div>
+            <div class="row g-3 align-items-end">
+              <div class="col-12 col-md-3">
+                <label class="form-label" for="color1Input">Primary Color</label>
+                <input type="text" id="color1Input" class="form-control form-control-color" value="#ffdd57">
+              </div>
+              <div class="col-12 col-md-3">
+                <label class="form-label" for="color2Input">Second Color</label>
+                <input type="text" id="color2Input" class="form-control form-control-color" value="#ff7b00">
+              </div>
+              <div class="col-12 col-md-3">
+                <label class="form-label" for="color3Input">Third Color</label>
+                <input type="text" id="color3Input" class="form-control form-control-color" value="#ff00cc">
+              </div>
+              <div class="col-12 col-md-3">
+                <label class="form-label" for="neonModeInput">Neon Mode</label>
+                <select id="neonModeInput" class="form-control">
+                  <option value="OFF">OFF</option>
+                  <option value="ON">ON</option>
+                </select>
+              </div>
+              <div class="col-12 d-flex gap-3 align-items-center flex-wrap">
+                <div class="preview-box mt-2 flex-fill">
+                  <div class="small mb-2">Preview</div>
+                  <div id="settingsPreviewText" class="settings-preview-text">USER • Your Choice, Your Music!</div>
+                </div>
+                <div class="mx-2">
+                  <button id="saveSettingsBtn" class="btn btn-warning text-dark" type="button">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass-card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="mb-3"><i class="bi bi-signpost"></i> Post your music entry now!</h5>
+            <div id="entryAlert"></div>
+            <div class="row g-3">
+              <div class="col-12 col-md-5">
+                <label class="form-label" for="songInput">Song</label>
+                <input type="text" id="songInput" class="form-control" placeholder="Title of the song..." maxlength="120">
+              </div>
+              <div class="col-12 col-md-5">
+                <label class="form-label" for="artistInput">Artist</label>
+                <input type="text" id="artistInput" class="form-control" placeholder="Name of the artist..." maxlength="120">
+              </div>
+              <div class="col-12 col-md-2 d-grid">
+                <label class="form-label invisible d-none d-md-block">Button</label>
+                <button id="postEntryBtn" class="btn btn-success w-100" type="button">
+                  <i class="bi bi-send me-1"></i> Post
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="adminPanelSection" class="card glass-card border-0 shadow-sm mb-4 d-none">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+              <div>
+                <h5 class="mb-0"><i class="bi bi-shield-lock me-2"></i>Admin Panel</h5>
+                <div class="small text-light">Soft delete, audit log, and pinned-post controls.</div>
+              </div>
+              <button id="adminRefreshBtn" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-clockwise me-1"></i>Refresh</button>
+            </div>
+            <div id="adminPanelBody">
+              <div class="text-center py-3 text-secondary">Loading admin panel...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass-card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <h5 class="mb-0"><i class="bi bi-bar-chart-line me-2"></i>Dashboard</h5>
+              <button id="hideDashboard" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-bar-down"></i> Hide</button>
+            </div>
+            <div id="dashboardContainer">
+              <div class="text-center py-3 text-secondary">Loading dashboard...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card glass-card border-0 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3 entries-topbar flex-wrap gap-2">
+              <div>
+                <h5 class="mb-0"><i class="bi bi-music-note-list me-2"></i>Post Threads</h5>
+                <div class="small text-light">If you see delay changes, try to refresh to see updated posts.</div>
+              </div>
+              <div class="d-flex gap-2 flex-wrap">
+                <button id="entriesTopBtn" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-up"></i> Top</button>
+                <button id="entriesBottomBtn" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-down"></i> Bottom</button>
+                <button id="entriesRefreshBtn" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-clockwise me-1"></i> Refresh</button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text bg-transparent text-light border-light-subtle"><i class="bi bi-search"></i></span>
+                <input type="text" id="entrySearch" class="form-control" placeholder="Search by song or artist...">
+              </div>
+            </div>
+            <div id="entriesScrollWrapper" class="entries-scroll-wrapper p-4">
+              <div id="entriesContainer">
+                <div class="text-center py-4 text-light">No entries yet.</div>
+              </div>
+              <div id="entryLoadMoreWrap" class="text-center mt-3 d-none">
+                <button id="entryLoadMoreBtn" class="btn btn-outline-light" type="button"><i class="bi bi-chevron-down me-1"></i> Load more</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button id="scrollToggleBtn" class="scroll-toggle-btn d-none" type="button" title="Scroll" aria-label="Scroll to top or bottom">
+      <i id="scrollToggleIcon" class="bi bi-arrow-down"></i>
+    </button>
+
+    <div class="modal fade" id="editCommentModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-modal">
+          <div class="modal-header border-0">
+            <h5 class="modal-title">Edit Comment</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body pt-0">
+            <div id="editCommentAlert"></div>
+            <label class="form-label" for="editCommentInput">Updated comment</label>
+            <textarea id="editCommentInput" class="form-control comment-textarea" rows="4" maxlength="500"></textarea>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" id="saveCommentEditBtn" class="btn btn-warning text-dark">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="editPostModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-modal">
+          <div class="modal-header border-0">
+            <h5 class="modal-title">Edit Post</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body pt-0">
+            <div id="editPostAlert"></div>
+            <div class="mb-3">
+              <label class="form-label" for="editPostSongInput">Song</label>
+              <input id="editPostSongInput" class="form-control" maxlength="120">
+            </div>
+            <div>
+              <label class="form-label" for="editPostArtistInput">Artist</label>
+              <input id="editPostArtistInput" class="form-control" maxlength="120">
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" id="savePostEditBtn" class="btn btn-warning text-dark">Save post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
