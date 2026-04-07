@@ -71,10 +71,10 @@ function initApp() {
 
   if (dashboardState.hidden) {
     container.classList.add("dashboard-hidden");
-    btn.innerHTML = `<i id="dashboardToggleIcon" class="bi bi-chevron-down"></i> Show`;
+    btn.innerHTML = `<i id="dashboardToggleIcon" class="bi bi-chevron-down"></i> &nbsp;Show`;
   } else {
     container.classList.remove("dashboard-hidden");
-    btn.innerHTML = `<i id="dashboardToggleIcon" class="bi bi-chevron-up"></i> Hide`;
+    btn.innerHTML = `<i id="dashboardToggleIcon" class="bi bi-chevron-up"></i> &nbsp;Hide`;
   }
 }
 
@@ -446,10 +446,10 @@ function createEntryCard(item) {
             ${item.updatedAtMs ? `<span class="edited-pill ms-2">Edited</span>` : ""}
           </div>
         </div>
-        <div class="d-flex align-items-center gap-2 flex-wrap">
-          ${item.canEdit ? `<button class="btn btn-sm btn-outline-warning" type="button" data-action="edit-post" data-entry-id="${escapeAttr(item.entryId || "")}">Edit</button>` : ""}
-          ${item.canPin ? `<button class="btn btn-sm btn-outline-info" type="button" data-action="toggle-pin" data-entry-id="${escapeAttr(item.entryId || "")}">${item.isPinned ? "Unpin" : "Pin"}</button>` : ""}
-          ${item.canDelete ? `<button class="btn btn-sm btn-outline-danger" type="button" data-action="delete-post" data-entry-id="${escapeAttr(item.entryId || "")}">${item.enteredBy === state.currentUser ? "Delete" : "Moderate"}</button>` : ""}
+        <div class="d-flex align-items-center gap-2 flex-wrap card-three-btns">
+          ${item.canEdit ? `<button type="button" data-action="edit-post" data-entry-id="${escapeAttr(item.entryId || "")}">Edit</button>` : ""}
+          ${item.canPin ? `<button type="button" data-action="toggle-pin" data-entry-id="${escapeAttr(item.entryId || "")}">${item.isPinned ? "Unpin" : "Pin"}</button>` : ""}
+          ${item.canDelete ? `<button type="button" data-action="delete-post" data-entry-id="${escapeAttr(item.entryId || "")}">${item.enteredBy === state.currentUser ? "Delete" : "Moderate"}</button>` : ""}
         </div>
       </div>
       <div class="comment-box mt-3">
