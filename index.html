@@ -6,7 +6,6 @@
     <title>Your Choice, Your Music!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/14550/14550555.png" type="image/png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="./styles.css">
@@ -20,15 +19,10 @@
     </div>
 
     <div class="container py-4 app-shell">
-      <div id="loginPage" class="row justify-content-center d-none">
+      <div id="loginPage" class="row justify-content-center d-none mx-2">
         <div class="col-12 col-md-6 col-lg-4">
           <div class="card glass-card border-0 shadow-lg">
             <div class="card-body p-4">
-              <div class="text-center mb-4">
-                <i class="bi bi-music-note-beamed fs-1"></i>
-                <h2 class="mt-2 mb-1">Login</h2>
-                <p class="text-light mb-0">Your Choice, Your Music!</p>
-              </div>
               <div id="loginAlert"></div>
               <div class="mb-3">
                 <label class="form-label" for="username">Username</label>
@@ -38,8 +32,8 @@
                 <label class="form-label" for="password">Password</label>
                 <input type="password" id="password" class="form-control form-control-lg" placeholder="Enter password" autocomplete="current-password">
               </div>
-              <button id="loginBtn" class="btn btn-primary w-100 btn-lg" type="button">
-                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+              <button id="loginBtn" class="btn btn-primary w-100" type="button">
+                Login
               </button>
             </div>
           </div>
@@ -50,32 +44,35 @@
         <div class="card glass-card border-0 shadow-sm mb-4 header-card">
           <div class="card-body">
             <div class="row align-items-center g-3 text-center text-md-start">
-              <div class="col-12 col-md-3">
-                <div class="small">Hi,</div>
-                <div class="fw-bold fs-5 d-flex align-items-center justify-content-center justify-content-md-start flex-wrap" id="userIdentityWrap">
-                  <span id="displayUsername">-</span>
+              <div class="col-12 col-md-3" hidden>
+                <div class="small">Hi, <span id="displayUsername">-</span>
                   <span id="userRoleBadge" class="role-badge d-none"></span>
                 </div>
               </div>
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-6" hidden>
                 <div class="fw-bold fs-5 title-main text-center">Your Choice, Your Music!</div>
               </div>
               <div class="col-12 col-md-3 text-md-end">
-                <div class="d-flex justify-content-md-end justify-content-center align-items-center gap-2 flex-wrap">
+                <div class="d-flex justify-content-md-end justify-content-end mx-3 align-items-center gap-2 flex-wrap">
                   <div class="dropdown">
                     <button id="notifBtn" class="btn btn-outline-light position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open notifications">
                       <i class="bi bi-bell"></i>
                       <span id="notifBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
                     </button>
+
                     <div class="dropdown-menu dropdown-menu-end p-2 notification-menu shadow-lg">
-                      <div class="d-flex justify-content-between align-items-center gap-2 p-2">
-                        <div class="fw-bold text-info mb-0">Notifications</div>
-                        <button id="markNotificationsReadBtn" class="btn btn-sm btn-outline-info" type="button">Mark all read</button>
-                      </div>
-                      <div id="notificationContainer" class="notification-container">
-                        <div class="small text-muted px-2">No notifications yet.</div>
-                      </div>
+                        
+                      <div class="d-flex justify-content-between align-items-center gap-2 py-2 px-3">
+                          <div class="fw-bold mb-0" style="color: #C7BDE0 !important;">Notifications</div>
+                          <button id="markNotificationsReadBtn" class="btn btn-sm btn-outline-info" type="button">Mark all read</button>
+                        </div>
+
+                        <div id="notificationContainer" class="notification-container">
+                          <div class="small text-muted px-2">No notifications yet.</div>
+                        </div>
+
                     </div>
+
                   </div>
                   <button id="toggleSettingsBtn" class="btn btn-outline-light" type="button">Settings</button>
                   <button id="logoutBtn" class="btn btn-outline-light" type="button">Logout</button>
@@ -164,7 +161,7 @@
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
               <h5 class="mb-0"><i class="bi bi-bar-chart-line me-2"></i>Dashboard</h5>
-              <button id="hideDashboard" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-bar-down"></i> Hide</button>
+              <button id="hideDashboard" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-bar-down"></i> &nbsp;Hide</button>
             </div>
             <div id="dashboardContainer">
               <div class="text-center py-3 text-secondary">Loading dashboard...</div>
@@ -179,7 +176,7 @@
                 <h5 class="mb-0"><i class="bi bi-music-note-list me-2"></i>Post Threads</h5>
                 <div class="small text-light">If you see delay changes, try to refresh to see updated posts.</div>
               </div>
-              <div class="d-flex gap-2 flex-wrap">
+              <div class="d-flex gap-2 flex-wrap three-buttons">
                 <button id="entriesTopBtn" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-up"></i> Top</button>
                 <button id="entriesBottomBtn" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-down"></i> Bottom</button>
                 <button id="entriesRefreshBtn" class="btn btn-sm btn-outline-light" type="button"><i class="bi bi-arrow-clockwise me-1"></i> Refresh</button>
