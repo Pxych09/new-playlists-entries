@@ -197,30 +197,44 @@ body.theme-neon .glass-card {
   100% { background: var(--surface-1); }
 }
 
+#markNotificationsReadBtn {
+  scale: .88;
+  display: flex;
+  width: 35%;
+  font-size: .70rem;
+  justify-content: center; align-items: center;
+}
 .notification-menu {
   z-index: 3000 !important;
-  width: 340px;
-  max-width: 90vw;
+  width: min(400px, 100%);
   background: rgba(30,30,30,0.96);
-  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 16px;
+  border: 2px solid #F797EF;
+  margin-inline: auto;
+  margin-top: 1.15em !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.35);
 }
+.dropdown-menu {
+  width: 80vw !important;
+}
+.notification-container { max-height: 360px; overflow-y: auto; margin: .25em auto;}
 
-.notification-container { max-height: 360px; overflow-y: auto; }
-
+.notification-item > .fw-semibold {
+  color: #FED56C;
+}
 .notification-item {
   background: var(--surface-2);
   border: 1px solid rgba(255,255,255,0.08);
   color: #f2f2f2;
   cursor: pointer;
   transition: all 0.2s ease;
+  margin: .25em 1.15em;
 }
 .notification-item:hover { transform: translateY(-1px); background: rgba(255,255,255,0.1); }
 .notification-time { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
-.notification-unread { border-color: rgba(255,221,87,0.55); }
+.notification-unread { border-color: #BE37B7; }
 
 .header-card { position: relative; z-index: 2000; }
 
@@ -401,6 +415,90 @@ body.theme-neon .glass-card {
   .empty-box { padding: 20px 12px; }
   .notification-menu { width: calc(100vw - 20px); max-width: calc(100vw - 20px); }
   .btn { width: 100%; }
+  .three-buttons {
+    width: 100%;
+  }
+  .comment-textarea, button[data-action="post-comment"] {
+    font-size: .70rem;
+  }
+  .comment-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .comment-actions {
+    display: flex !important;
+    width: 100%;
+  }
+  .comment-item .comment-text .comment-time {
+    font-size: .55rem !important;
+    display: flex !important; 
+    align-self: flex-end;
+  }
+  .comment-item .comment-text {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap !important;
+  }
+  .comment-actions button {
+    width: auto;
+    font-size: .65rem !important;
+  }
+
+
+  .card-three-btns button {
+    width: 70px;
+    margin: 0 !important; padding: 0 !important;
+    font-size: .65em;
+    border: 0;
+    border-radius: 5px;
+    padding: 4px !important;
+  }
+  .card-three-btns {
+    justify-content: end;
+    width: 100%;
+    padding: .5em .25em;
+    display: flex !important;
+  }
+  #entriesContainer > .entry-card .entry-song-row {
+    justify-content: space-between;
+    padding: .35em .5em !important;
+  }
+  #entriesContainer > .entry-card .entry-song-row > .pin-pill {
+    font-size: .70rem !important;
+    color: #A0F3CE !important;
+    outline: 1.5px solid #37FB8F !important;
+    scale: .85;
+  }
+  #entriesContainer > .entry-card .entry-meta .owner-pill {
+    display: none;
+  }
+  #entriesContainer > .entry-card .entry-meta {
+    padding-inline: .65em;
+    justify-content: start;
+    display: flex;
+    align-items: center;
+    font-size: .65rem;
+    margin-bottom: 0 !important;
+  }
+  #entriesContainer > .entry-card .entry-artist {
+    padding-inline: .65em;
+    font-weight: 500;
+  }
+  #entriesContainer > .entry-card :is(.entry-song, .entry-artist) {
+    font-size: .80rem !important;
+  }
+  #entriesContainer > .entry-card {
+    border: 1px solid #37FB8F;
+    margin-inline: auto;
+    width: min(320px);
+  }
+  #entriesScrollWrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .comments-list.mt-3 .small.text-secondary {
+    font-size: .75rem;
+  }
 }
 
 #dashboardContainer {
